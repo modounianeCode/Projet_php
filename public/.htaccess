@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+    # Activer le moteur de réécriture
+    RewriteEngine On
+    
+    # Définir la base
+    RewriteBase /php/marketplace-agricole/
+    
+    # Rerouter tous les fichiers non-existants vers index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Sécurité: empêcher le cache des pages critiques
+    <FilesMatch "\.(php|html)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Sécurité: ajouter les headers de protection
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
