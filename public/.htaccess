@@ -4,7 +4,7 @@
     
     # Définir la base
     
-    RewriteBase /PHP/Projet_php/public/
+    RewriteBase /php/final-site/Projet_php
     
     # Rerouter tous les fichiers non-existants vers index.php
     RewriteCond %{REQUEST_FILENAME} !-f
