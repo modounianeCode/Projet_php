@@ -115,6 +115,11 @@ abstract class Controller
             error_log("Upload error: " . $file['error']);
             return false;
         }
+
+        if (!is_uploaded_file($file['tmp_name'])) {
+            error_log("File was not uploaded via HTTP POST");
+            return false;
+        }
         
         // Vérifier la taille (max 2 MB)
         if ($file['size'] > 2 * 1024 * 1024) {
@@ -130,17 +135,30 @@ abstract class Controller
         }
         
         // Vérifier le type MIME détecté
-        $allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        if (!in_array($imageInfo['mime'], $allowed)) {
+        $mimeToExt = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/gif'  => 'gif',
+            'image/webp' => 'webp',
+        ];
+        if (!isset($mimeToExt[$imageInfo['mime']])) {
             error_log("Invalid MIME type: " . $imageInfo['mime']);
             return false;
         }
 
-        $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $ext      = $mimeToExt[$imageInfo['mime']];
         $filename = $prefix . '_' . uniqid() . '.' . $ext;
         $dest     = UPLOAD_DIR . $filename;
 
-        if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
+        if (!is_dir(UPLOAD_DIR) && !mkdir(UPLOAD_DIR, 0755, true) && !is_dir(UPLOAD_DIR)) {
+            error_log("Failed to create upload directory");
+            return false;
+        }
+
+        if (!is_writable(UPLOAD_DIR)) {
+            error_log("Upload directory is not writable: " . UPLOAD_DIR);
+            return false;
+        }
 
         if (!move_uploaded_file($file['tmp_name'], $dest)) {
             error_log("move_uploaded_file failed");

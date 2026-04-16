@@ -15,6 +15,8 @@ class Router
         'panier'    => 'PanierController',
         'commande'  => 'CommandeController',
         'dashboard' => 'DashboardController',
+        'paiement'  => 'PaiementController',
+        'livraison' => 'LivraisonController',
     ];
 
     public function __construct()

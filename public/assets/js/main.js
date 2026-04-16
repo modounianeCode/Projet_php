@@ -1,20 +1,20 @@
 // ===== AUTO-DISMISS FLASH =====
 setTimeout(() => {
-    const flash = document.getElementById('flash-msg');
+    const flash = document.getElementById('flash');
     if (flash) flash.style.animation = 'slideOut .3s ease forwards';
     setTimeout(() => flash?.remove(), 300);
 }, 4000);
 
 // ===== NAVBAR SCROLL =====
 window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.navbar');
+    const nav = document.querySelector('.nav');
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
 });
 
 // ===== AJAX ADD TO CART =====
-document.querySelectorAll('.add-form').forEach(form => {
+document.querySelectorAll('.js-add-form').forEach(form => {
     form.addEventListener('submit', async function(e) {
-        const btn = this.querySelector('.btn-cart');
+        const btn = this.querySelector('.card__btn-cart');
         if (!btn) return;
         e.preventDefault();
         btn.textContent = '✓';
@@ -28,18 +28,19 @@ document.querySelectorAll('.add-form').forEach(form => {
             });
             const data = await res.json();
             if (data.success) {
-                const badge = document.querySelector('.cart-badge');
+                const count = data.total ?? data.count ?? 0;
+                const badge = document.querySelector('.nav__badge');
                 if (badge) {
-                    badge.textContent = data.count;
+                    badge.textContent = count;
                     badge.style.animation = 'none';
                     badge.offsetHeight;
                     badge.style.animation = 'pulse .3s ease';
                 } else {
-                    const cartLink = document.querySelector('.cart-link');
+                    const cartLink = document.querySelector('.nav__cart');
                     if (cartLink) {
                         const b = document.createElement('span');
-                        b.className = 'cart-badge';
-                        b.textContent = data.count;
+                        b.className = 'nav__badge';
+                        b.textContent = count;
                         cartLink.appendChild(b);
                     }
                 }

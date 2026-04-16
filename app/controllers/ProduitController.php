@@ -106,7 +106,7 @@ class ProduitController extends Controller
             if ($upload) {
                 $image = $upload;
             } else {
-                $this->flash('error', 'Image invalide (JPG/PNG, max 2 Mo).');
+                $this->flash('error', 'Image invalide (JPG/PNG/WebP, max 2 Mo).');
                 $this->redirect('produit/ajouter');
             }
         }

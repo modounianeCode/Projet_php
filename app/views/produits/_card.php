@@ -3,7 +3,7 @@
 ?>
 <article class="card">
   <a href="<?= BASE_URL ?>produit/detail/<?= $p['id'] ?>" class="card__img-wrap">
-    <?php if (!empty($p['image']) && $p['image'] !== 'default.png'): ?>
+    <?php if (!empty($p['image']) && $p['image'] !== 'default.svg'): ?>
       <img src="<?= UPLOAD_URL . htmlspecialchars($p['image']) ?>"
            alt="<?= htmlspecialchars($p['nom']) ?>" class="card__img" loading="lazy">
     <?php else: ?>

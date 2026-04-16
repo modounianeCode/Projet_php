@@ -41,6 +41,8 @@
           </button>
           <ul class="nav__dropdown">
             <li><a href="<?= BASE_URL ?>dashboard/index">Mon Dashboard</a></li>
+            <li><a href="<?= BASE_URL ?>paiement">Mes paiements</a></li>
+            <li><a href="<?= BASE_URL ?>livraison">Mes livraisons</a></li>
             <?php if ($_SESSION['role'] === 'vendeur'): ?>
               <li><a href="<?= BASE_URL ?>produit/ajouter">+ Ajouter un produit</a></li>
             <?php endif; ?>
