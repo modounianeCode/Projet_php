@@ -15,6 +15,8 @@ class Router
         'panier'    => 'PanierController',
         'commande'  => 'CommandeController',
         'dashboard' => 'DashboardController',
+        'livraison'  => 'LivraisonController',  // ✅ AJOUTER
+        'paiement'   => 'PaiementController',   // ✅ AJOUTER
     ];
 
     public function __construct()

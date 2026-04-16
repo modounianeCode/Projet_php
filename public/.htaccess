@@ -3,7 +3,8 @@
     RewriteEngine On
     
     # Définir la base
-    RewriteBase /php/marketplace-agricole/
+    
+    RewriteBase /PHP/Projet_php/public/
     
     # Rerouter tous les fichiers non-existants vers index.php
     RewriteCond %{REQUEST_FILENAME} !-f
